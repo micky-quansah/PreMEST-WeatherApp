@@ -1,4 +1,4 @@
-section{
+section {
   width: 40vw;
   border-radius: 0px 20px 20px 0px;
   display: flex;
@@ -43,11 +43,11 @@ section{
     transition-duration: 2s;
     transition-timing-function: ease;
   }
-    form{
+    .form{
       margin: auto;
       padding: 25% auto;
     }
-      input{
+      .input{
         margin-bottom: 5vh;
         border-right: none;
         border-top: none;
@@ -57,12 +57,12 @@ section{
         color: white;
         caret-color: rgb(43, 43, 42);
       }
-      input[type=text]::placeholder {
+      .input-text::placeholder {
         text-align: center;
         color: white;
         font-family: 'Roboto', sans-serif;
       }
-      input[type=email]::placeholder {
+      .input-email::placeholder {
         text-align: center;
         color: white;
         font-family: 'Roboto', sans-serif;

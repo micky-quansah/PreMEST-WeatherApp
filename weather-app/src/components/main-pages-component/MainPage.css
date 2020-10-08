@@ -7,3 +7,23 @@
 .theButton {
   z-index: 10;
 }
+.search{
+  position: fixed;
+  left: 500px;
+  top: 60px;
+}
+#history{
+  position: relative;
+  left: 1000 ;
+  top:0;
+  width: 30vw;
+  height: 100;
+  color: aquamarine;
+}
+.main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50vh;
+}

@@ -35,16 +35,16 @@ class Form extends Component {
     }
 
     return (
-      <section id="flyout" onMouseDown={this.props.handleMouseDown} 
+      <section id='form-section' id="flyout" onMouseDown={this.props.handleMouseDown} 
       className={this.visibility} >
         <div className="formContainer">
         <h1>Sign Up</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form className='form' onSubmit={this.handleSubmit}>
           <label title="name">
-            <input type="text" onClick={this.onInput()} name={this.state.value} placeholder="Name" onChange={this.handleChange}/><br />
+            <input className='input input-text' type="text" onClick={this.onInput()} name={this.state.value} placeholder="Name" onChange={this.handleChange}/><br />
           </label>
           <label title="name">
-            <input type="text" onClick={this.onInput()} name={this.state.value} placeholder="Email" onChange={this.handleChange}/><br />
+            <input className='input input-text' type="email" onClick={this.onInput()} name={this.state.value} placeholder="Email" onChange={this.handleChange}/><br />
           </label>
           <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>

@@ -1,8 +1,9 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import './MainPage.css';
 import Form from '../forms-component/Form';
 import LoginButton from '../login-component/LoginButton';
-import History from '../history-component/History'
+import History from '../history-component/History';
+import WeatherField from '../weather-component/WeatherField';
 
 class MainPage extends Component {
   constructor(props) {
@@ -30,13 +31,9 @@ class MainPage extends Component {
 
   search(e) {
     e.preventDefault();
-
-    // Create variables for our list, the item to add, and our form
     let list = this.state.list;
     const newItem = document.getElementById("addInput");
     const form = document.getElementById("addItemForm");
-
-    // If our input has a value
     if (newItem.value !== "") {
       list.push(newItem.value);
       this.setState({list: list});
@@ -53,15 +50,15 @@ class MainPage extends Component {
       <Form className='theForm' handleMouseDown={this.handleMouseDown} menuVisibility={this.state.visible}/>
 
       <div>
-      <section className="section">
+      <History result={this.state.list} />
+      <div className= 'search'>
         <form className="form" id="addItemForm">
-          <input type="text" className="input" id="addInput" placeholder="Enter City Name..." />
+          <input type="text" id="addInput" placeholder="Enter City Name..." />
           <button onClick={this.search} >Search</button>
         </form>
-      </section>
+        <WeatherField />
       </div>
-      <History result={this.state.list} />
-
+      </div>
       </>
       );
   }
