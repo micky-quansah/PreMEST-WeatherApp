@@ -1,0 +1,20 @@
+#loginButton {
+  background-color: #05ABF3;
+  margin: 20px;
+  width: 110px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  transition: all .2s cubic-bezier(0, 1.26, .8, 1.28);
+}
+
+#loginButton:hover {
+  background-color: #96D9FF;
+  cursor: pointer;
+  transform: scale(1.2, 1.2);
+}
+
+#loginButton:active {
+  background-color: #FFF;
+}
