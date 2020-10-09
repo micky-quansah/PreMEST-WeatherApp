@@ -47,7 +47,7 @@ class Form extends Component {
           <label title="name" for="password">
             <input className='input input-text' type="password" onClick={this.onInput()} name={this.state.value} placeholder="Password" onChange={this.handleChange}/><br />
           </label>
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+          <input type="submit" value="Submit" onClick={this.handleSubmit} onMouseDown={this.props.handleMouseDown} />
         </form>
 
         </div>
