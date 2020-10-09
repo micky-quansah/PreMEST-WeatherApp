@@ -4,26 +4,104 @@
   top: 0;
   transform: translate3d(-100vw, 0, 0);
 }
-.theButton {
-  z-index: 10;
+:root {
+  --rad: .7rem;
+  --dur: .3s;
+  --color-dark: #2f2f2f;
+  --color-light: #fff;
+  --color-brand: #57bd84;
+  --font-fam: 'Lato', sans-serif;
+  --height: 5rem;
+  --btn-width: 6rem;
+  --bez: cubic-bezier(0, 0, 0.43, 1.49);
 }
-.search{
-  position: fixed;
+
+body {
+  background: linear-gradient(to top left,#EC99DE,#99DEEC);
+  background: url(../../images/stacey-gabrielle-koenitz-rozells-kSY5T6js2KE-unsplash.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 10px;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.form {
+  position: absolute;
   left: 500px;
-  top: 60px;
+  top: 30px;
+  width: 30rem;
+  background: var(--color-brand);
+  border-radius: var(--rad);
 }
-#history{
+
+.search, .button {
+  height: var(--height);
+  font-family: var(--font-fam);
+  border: 0;
+  color: var(--color-dark);
+  font-size: 1.8rem;
+}
+
+.search[type="search"] {
+  outline: 0;
+  width: 100%;
+  background: var(--color-light);
+  padding: 0 1.6rem;
+  border-radius: var(--rad);
+  appearance: none;
+  transition: all var(--dur) var(--bez);
+  transition-property: width, border-radius;
+  z-index: 1;
   position: relative;
-  left: 1000 ;
-  top:0;
-  width: 30vw;
-  height: 100;
-  color: aquamarine;
+}
+
+.button {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--btn-width);
+  font-weight: bold;
+  background: var(--color-brand);
+  border-radius: 0 var(--rad) var(--rad) 0;
+}
+
+.search:not(:placeholder-shown) {
+  border-radius: var(--rad) 0 0 var(--rad);
+  width: calc(100% - var(--btn-width));
+}
+
+.search:not(:placeholder-shown) + .button {
+  display: block;
+}
+
+.label {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
 }
 .main{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  position: absolute;
+  left: 600px;
+  top: 150px;
   height: 50vh;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr;
 }

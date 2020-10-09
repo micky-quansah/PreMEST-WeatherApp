@@ -1,14 +1,23 @@
 section {
-  width: 40vw;
+  width: 30vw;
   border-radius: 0px 20px 20px 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
   height: 100vh;
   background: linear-gradient(to top left, #60CDFC, #5FFCC2);
   background-repeat: cover;
   color: white;
 }
+  #cancel{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 2%;
+    left: 92%;
+    border-radius: 50% 50%;
+  }
+  #cancel:hover{
+    background: rgba(255, 0, 0, 0.822);
+  }
   .formContainer {
     display: flex;
     justify-content: center;
@@ -16,8 +25,11 @@ section {
     flex-direction: column;
     height: 80vh;
   }
+  #signIn{
+    margin-top: 20vh;
+  }
   #flyout {
-    width: 40vw;
+    width: 30vw;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -43,7 +55,7 @@ section {
     transition-duration: 2s;
     transition-timing-function: ease;
   }
-    .form{
+    .hform{
       margin: auto;
       padding: 25% auto;
     }

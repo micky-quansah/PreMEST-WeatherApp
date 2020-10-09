@@ -45,21 +45,30 @@ class MainPage extends Component {
 
   render(){
     return (
-      <>
-      <LoginButton className="theButton" handleMouseDown={this.handleMouseDown}/>
-      <Form className='theForm' handleMouseDown={this.handleMouseDown} menuVisibility={this.state.visible}/>
-
       <div>
-      <History result={this.state.list} />
-      <div className= 'search'>
-        <form className="form" id="addItemForm">
-          <input type="text" id="addInput" placeholder="Enter City Name..." />
-          <button onClick={this.search} >Search</button>
-        </form>
-        <WeatherField />
+        <Form className='theForm' handleMouseDown={this.handleMouseDown} menuVisibility={this.state.visible}/>
+      
+        <div className='grid-container'>
+
+          <LoginButton className="theButton" handleMouseDown={this.handleMouseDown}/>
+
+          <div className= 'search'>
+
+            <form className="form" id="addItemForm" role="search">
+              <label for="search" className="label">Search Location</label>
+              <input className="search" id="search" type="search" placeholder="Search..." id="addInput" autofocus required />
+              <button className="button" type="submit" onClick={this.search}>Go</button>    
+            </form>
+
+            <WeatherField className= 'main'/>
+
+          </div>
+
+          <History result={this.state.list} />
+
+        </div>
+
       </div>
-      </div>
-      </>
       );
   }
 }
