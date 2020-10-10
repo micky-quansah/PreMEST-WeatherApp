@@ -1,8 +1,54 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import './Form.css';
 import cancelLogo from "../../images/cancel.png";
 
-class Form extends Component {
+function Form(props) {
+  const [submit, setSubmit] = useState(false);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [input, setInput] = useState(false);
+
+  console.log(props.menuVisibility)
+
+  function handleSubmit(event) {
+    setSubmit({submit: true});
+    event.preventDefault();
+  }
+
+  function handlePassword(e) {
+    setPassword({password: e.target.value})
+  }
+
+  function handleName(e) {
+    setName({name: e.target.value})
+  }
+
+  function onInput() {
+    setInput({input: true});
+  }
+
+  return (
+    <section id='form-section' id="flyout" className={props.menuVisibility} >
+    <img id="cancel" src={cancelLogo} onMouseDown={props.handleMouseDown} />
+      <div className="formContainer">
+      {submit ? <h1 id="signIn" > Log In</h1> : <h1 id="signIn" >Sign Up</h1> }
+      <form className='hform' onSubmit={handleSubmit}>
+        <label title="name">
+          <input id="name" value={name} name="name" className='input input-text' type="text" onClick={onInput} placeholder="Name" onChange={handleName} required/><br />
+        </label>
+        <label title="name">
+          <input className='input input-text' name="password" value={password} type="password" onClick={onInput} placeholder="Password" onChange={handlePassword} required/><br />
+        </label>
+        <input type="submit" value="Submit" onClick={handleSubmit} onMouseDown={props.handleMouseDown} />
+      </form>
+
+      </div>
+    </section>
+  );
+
+}
+
+/* class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {submit: false};
@@ -25,7 +71,6 @@ class Form extends Component {
 
   onInput() {
     this.inputClick = true;
-    console.log(this.inputClick);
   }
   
 
@@ -56,6 +101,6 @@ class Form extends Component {
       </section>
     );
   }
-}
+} */
 
 export default Form;
