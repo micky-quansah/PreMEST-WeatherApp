@@ -6,15 +6,16 @@ class History extends Component {
     super(props);
   }
 
-  
-
   render() {
     return (
       <div className="hmain">
         <ul>
-          {this.props.result.map(item => (
+          {this.props.result.map(
+            item => (
             <li key={item}>{item}</li>
-          ))}
+          )
+          )
+          }
         </ul>
       </div>
     );

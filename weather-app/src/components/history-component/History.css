@@ -12,3 +12,6 @@ ul{
   border-radius: 20px;
   padding: 10px;
 }
+li{
+  margin: 10px auto;
+}
