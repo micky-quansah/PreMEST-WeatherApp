@@ -38,7 +38,7 @@ html {
 
 .form {
   position: absolute;
-  left: 500px;
+  left: 400px;
   top: 30px;
   width: 30rem;
   background: var(--color-brand);
@@ -106,7 +106,7 @@ html {
   border-radius: 20px;
   padding: 10px;
 }
-.main{
+.mmain{
   position: absolute;
   left: 600px;
   top: 150px;
