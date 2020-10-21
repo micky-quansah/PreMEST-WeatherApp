@@ -4,8 +4,8 @@ import cancelLogo from "../../images/cancel.png";
 
 function Form(props) {
   const [submit, setSubmit] = useState(false);
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState({value:""});
+  const [password, setPassword] = useState({value:""});
   const [input, setInput] = useState(false);
 
   console.log(props.menuVisibility)
@@ -16,11 +16,11 @@ function Form(props) {
   }
 
   function handlePassword(e) {
-    setPassword({password: e.target.value})
+    setPassword({value: e.target.value})
   }
 
   function handleName(e) {
-    setName({name: e.target.value})
+    setName({value: e.target.value})
   }
 
   function onInput() {
@@ -34,10 +34,10 @@ function Form(props) {
       {submit ? <h1 id="signIn" > Log In</h1> : <h1 id="signIn" >Sign Up</h1> }
       <form className='hform' onSubmit={handleSubmit}>
         <label title="name">
-          <input id="name" value={name} name="name" className='input input-text' type="text" onClick={onInput} placeholder="Name" onChange={handleName} required/><br />
+          <input id="name" value={name.value} name="name" className='input input-text' type="text" onClick={onInput} placeholder="Name" onChange={handleName} required/><br />
         </label>
         <label title="name">
-          <input className='input input-text' name="password" value={password} type="password" onClick={onInput} placeholder="Password" onChange={handlePassword} required/><br />
+          <input className='input input-text' name="password" value={password.value} type="password" onClick={onInput} placeholder="Password" onChange={handlePassword} required/><br />
         </label>
         <input type="submit" value="Submit" onClick={handleSubmit} onMouseDown={props.handleMouseDown} />
       </form>

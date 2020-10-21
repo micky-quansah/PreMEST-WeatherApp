@@ -9,54 +9,58 @@ import WeatherField from '../weather-component/WeatherField';
 
 //const FAPI = 'http://api.weatherstack.com/forecast?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&forecast_days=7&hourly=1&units=m';
 
-function MainPage() {
+function  MainPage() {
   const [visible, setformVisibility]= useState("hide");
   const [click, setclick]= useState(false);
-  const [data, setApiData] = useState([]);
   const [url, setUrl] = useState('http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&units=m');
-  const [query, setQuery] = useState('fetch:ip');
-  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState({value:'fetch:ip'});
   const [isError, setIsError] = useState(false);
+  //const [apiResult, setApiResult] = useState([])
 
-  let apiResult = [{}]
+  const apiResult = [];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
+  let loading = false;
 
-      try {
-        const result = await axios(url);
-        const {data} = result;
-        const {current, location} = data;
-        const {temperature, humidity, weather_descriptions, weather_icons} = current;
-        const {name, country} = location;
+  const fetchData = async () => {
+    setIsError(false);
+    loading = true;
 
-        const resObject = {
-          temperature: temperature,
-          humidity: humidity,
-          descriptions: weather_descriptions[0],
-          weather_icons: weather_icons[0],
-          name: name,
-          country: country
-        }
-        if (apiResult.length <= 5){
-          apiResult.push(resObject);
-        } else {
-          apiResult.shift();
-          apiResult.push(resObject);
-        }
+    console.log(url)
 
-      } catch (error) {
-        setIsError(true);
+    try {
+      const result = await axios(url);
+      const {data} = result;
+      const {current, location} = await data;
+      const {temperature, humidity, weather_descriptions, weather_icons} = await current;
+      const {name, country} = await location;
+
+      const resObject = {
+        temperature: temperature,
+        humidity: humidity,
+        descriptions: weather_descriptions[0],
+        weather_icons: weather_icons[0],
+        name: name,
+        country: country
+      }
+      if (apiResult.length <= 5){
+        apiResult.push(resObject);
+      } else {
+        apiResult.shift();
+        apiResult.push(resObject);
       }
 
-      setIsLoading(false);
-    };
+    } catch (error) {
+      setIsError(true);
+    }
 
+    loading = false;
+  };
+
+  useEffect(() => {
     fetchData();
-    console.log(apiResult);
   },[url]);
+
+  console.log(apiResult);
   
   function handleMouseDown(e) {
     setclick(!click);
@@ -68,6 +72,16 @@ function MainPage() {
     
     console.log("clicked " + visible);
     e.stopPropagation();
+  }
+
+  function handleQuery(e) {
+    setQuery({value: e.target.value})
+  }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    setUrl(`http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=${query.value}&units=m`);
+    fetchData();
   }
 
   return (
@@ -83,23 +97,46 @@ function MainPage() {
           <form className="form" id="addItemForm" role="search">
             <input className="fsearch" 
               type="search"
-              value={query}
-              onChange={event => setQuery(event.target.value)}
+              value={query.value}
+              onChange={handleQuery}
               placeholder="Search..." 
               id="addInput" 
               required />
-            <button className="button" type="submit" onClick={() => 
-              setUrl(`http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=${query}:ipunits=m`)}>Go</button>    
+            <button className="button" type="submit" onClick={handleSearch}>Go</button>    
           </form>
 
           {isError ? (<div className='mmain'>Something went wrong ...</div>) :
-            isLoading ? 
+            loading ? 
               (<div className='mmain'>Loading ...</div>) : 
-              (<WeatherField className= 'mmain' weather={apiResult}/>)
+              (<div className='main'>
+              <div className='fade-in one '>
+                <div className='box'>Location: { apiResult?.name }
+                <p className='cityName trapezoid'></p></div>
+              </div>
+              
+              <div className='fade-in two'>
+                <div className='box'>Date: { apiResult?.description }
+                <p className='cityName trapezoid'></p></div>
+              </div>
+        
+              <div className='fade-in three img'>
+                <img className='img' scr={apiResult?.weather_icon} alt='Weather Icon'></img>
+              </div>
+        
+              <div className='fade-in four'>
+                <div className='box'>Temperature : { apiResult?.temperature }
+                <p className='cityName trapezoid'></p></div>
+              </div>
+        
+              <div className='fade-in five'>
+                <div className='box'>Humidity : { apiResult?.humidity }
+                <p className='cityName trapezoid'></p></div>
+              </div>
+            </div>)
           }
         </div>
 
-        {data.length===0 ? <p className='nohis'>No Search History</p> : <History result={apiResult[apiResult.length-1]} />}
+        {apiResult.length===0 ? <p className='nohis'>No Search History</p> : <History result={apiResult[apiResult.length]} />}
 
       </div>
 

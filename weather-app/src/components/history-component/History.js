@@ -9,13 +9,14 @@ class History extends Component {
   render() {
     return (
       <div className="hmain">
-        {/* <ul>
+        {/* <ul key={item}>
           {this.props.result.map(
             item => (
-            <li key={item}>{item}</li>
-          )
-          )
+            <li >{item}</li>))
           }
+          <div>
+          <img><img/>
+          </div>
         </ul> */}
       </div>
     );
