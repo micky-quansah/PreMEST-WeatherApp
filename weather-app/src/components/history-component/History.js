@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './History.css';
 
-class History extends Component {
-  constructor(props){
-    super(props);
-  }
+function History (props) {
 
-  render() {
+  const weatherHistory = props.result;
+
     return (
       <div className="hmain">
-        {/* <ul key={item}>
-          {this.props.result.map(
-            item => (
-            <li >{item}</li>))
+          {weatherHistory.map(
+            (item, index) => (
+              <ul key={index}>
+              <li >{item.name}</li>
+              <li >{item.descriptions}</li>
+              </ul>
+            ))
           }
-          <div>
-          <img><img/>
-          </div>
-        </ul> */}
       </div>
     );
-  }
 }
 
 export default History;

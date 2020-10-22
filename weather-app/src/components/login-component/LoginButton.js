@@ -4,7 +4,7 @@ import './LoginButton.css';
 class LoginButton extends Component {
   render() {
     return (
-      <button id="loginButton" onMouseDown={this.props.handleMouseDown}>LOGIN</button>
+      <button id="loginButton" onClick={this.props.onClick}>LOGIN</button>
     );
   }
 }

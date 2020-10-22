@@ -29,7 +29,7 @@ function Form(props) {
 
   return (
     <section id='form-section' id="flyout" className={props.menuVisibility} >
-    <img id="cancel" src={cancelLogo} onMouseDown={props.handleMouseDown} />
+    <img id="cancel" src={cancelLogo} onClick={props.onClick} />
       <div className="formContainer">
       {submit ? <h1 id="signIn" > Log In</h1> : <h1 id="signIn" >Sign Up</h1> }
       <form className='hform' onSubmit={handleSubmit}>

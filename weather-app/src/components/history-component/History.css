@@ -6,12 +6,14 @@ ul{
   font-size: medium;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 400;
-  margin: auto;
+  margin: 2rem auto;
   width: 50%;
   border: 3px solid rgba(236, 255, 236, 0.651);
   border-radius: 20px;
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.774);
 }
 li{
   margin: 10px auto;
+  text-align: center;
 }

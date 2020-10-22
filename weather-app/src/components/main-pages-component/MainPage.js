@@ -4,28 +4,28 @@ import './MainPage.css';
 import Form from '../forms-component/Form';
 import LoginButton from '../login-component/LoginButton';
 import History from '../history-component/History';
-import WeatherField from '../weather-component/WeatherField';
 
 
 //const FAPI = 'http://api.weatherstack.com/forecast?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&forecast_days=7&hourly=1&units=m';
+//let apiResult = [];
+
+
 
 function  MainPage() {
+
   const [visible, setformVisibility]= useState("hide");
-  const [click, setclick]= useState(false);
-  const [url, setUrl] = useState('http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&units=m');
-  const [query, setQuery] = useState({value:'fetch:ip'});
+  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState({value:''});
   const [isError, setIsError] = useState(false);
-  //const [apiResult, setApiResult] = useState([])
+  const [apiResult, setApiResult] = useState([])
 
-  const apiResult = [];
+  
+  //let loading = false;
 
-  let loading = false;
-
-  const fetchData = async () => {
+  const fetchData = async (url) => {
     setIsError(false);
-    loading = true;
-
-    console.log(url)
+    setLoading(true);
+    let tempResult = apiResult;
 
     try {
       const result = await axios(url);
@@ -34,7 +34,7 @@ function  MainPage() {
       const {temperature, humidity, weather_descriptions, weather_icons} = await current;
       const {name, country} = await location;
 
-      const resObject = {
+      let resObject = {
         temperature: temperature,
         humidity: humidity,
         descriptions: weather_descriptions[0],
@@ -42,36 +42,37 @@ function  MainPage() {
         name: name,
         country: country
       }
-      if (apiResult.length <= 5){
-        apiResult.push(resObject);
-      } else {
-        apiResult.shift();
-        apiResult.push(resObject);
+
+      tempResult.unshift(resObject);
+
+      if (tempResult.length > 5) {
+        tempResult = tempResult.slice(0, 5)
       }
+
+      setApiResult(tempResult);
+
+      console.log(tempResult);
 
     } catch (error) {
       setIsError(true);
     }
 
-    loading = false;
+    setLoading(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  },[url]);
-
-  console.log(apiResult);
+  useEffect(()=>{
+    fetchData('http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&units=m');
+  },[]);
   
-  function handleMouseDown(e) {
-    setclick(!click);
-    if(click===true) {
-      setformVisibility("show");
-    }else{
-      setformVisibility("hide");
-    }
-    
-    console.log("clicked " + visible);
+  function handleLogin(e) {
+    setformVisibility("show");
     e.stopPropagation();
+  }
+
+  function handleCancel(e) {
+    setformVisibility("hide");
+    e.stopPropagation();
+    console.log("clicked " + visible);
   }
 
   function handleQuery(e) {
@@ -80,17 +81,20 @@ function  MainPage() {
 
   function handleSearch(e) {
     e.preventDefault();
-    setUrl(`http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=${query.value}&units=m`);
-    fetchData();
+    console.log(query)
+    const url = `http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=${query.value}&units=m`;
+    fetchData(url);
   }
 
+  const arrLength = apiResult.length;
+
   return (
-    <div>
-      <Form className='theForm' handleMouseDown={handleMouseDown} menuVisibility={visible} />
+    <div className={apiResult[0]?.descriptions}>
+      <Form className='theForm' onClick={handleCancel} menuVisibility={visible} />
     
       <div className='grid-container'>
 
-        <LoginButton className="theButton" handleMouseDown={handleMouseDown} />
+        <LoginButton className="theButton" onClick={handleLogin} />
 
         <div className= 'search'>
 
@@ -100,8 +104,7 @@ function  MainPage() {
               value={query.value}
               onChange={handleQuery}
               placeholder="Search..." 
-              id="addInput" 
-              required />
+              id="addInput"/>
             <button className="button" type="submit" onClick={handleSearch}>Go</button>    
           </form>
 
@@ -110,33 +113,29 @@ function  MainPage() {
               (<div className='mmain'>Loading ...</div>) : 
               (<div className='main'>
               <div className='fade-in one '>
-                <div className='box'>Location: { apiResult?.name }
-                <p className='cityName trapezoid'></p></div>
+                <div className='location'>Location: {apiResult[0]?.name} - {apiResult[0]?.country}</div>
               </div>
               
               <div className='fade-in two'>
-                <div className='box'>Date: { apiResult?.description }
-                <p className='cityName trapezoid'></p></div>
+                <div className='condition'>Condition: { apiResult[0]?.descriptions }</div>
               </div>
         
-              <div className='fade-in three img'>
-                <img className='img' scr={apiResult?.weather_icon} alt='Weather Icon'></img>
-              </div>
+              {/* <div className='fade-in three img'>
+                <img className='img' scr={apiResult[0]?.weather_icons} alt='Weather Icon'></img>
+              </div> */}
         
               <div className='fade-in four'>
-                <div className='box'>Temperature : { apiResult?.temperature }
-                <p className='cityName trapezoid'></p></div>
+                <div className='temperature'>Temperature : { apiResult[0]?.temperature }</div>
               </div>
         
               <div className='fade-in five'>
-                <div className='box'>Humidity : { apiResult?.humidity }
-                <p className='cityName trapezoid'></p></div>
+                <div className='humidity'>Humidity : { apiResult[0]?.humidity }</div>
               </div>
             </div>)
           }
         </div>
 
-        {apiResult.length===0 ? <p className='nohis'>No Search History</p> : <History result={apiResult[apiResult.length]} />}
+        {apiResult.length===0 ? <p className='nohis'>No Search History</p> : <History result={apiResult} />}
 
       </div>
 
