@@ -118,10 +118,13 @@ html {
   font-size: medium;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 400;
+  text-align: center;
   margin: 10px auto;
-  margin-top: 10%;
+  margin-top: 20%;
   width: 50%;
-  border: 3px solid rgba(236, 255, 236, 0.651);
+  height: 8rem;
+  border: 3px solid rgba(255, 255, 255, 0.651);
+  color: antiquewhite;
   border-radius: 20px;
   padding: 10px;
 }
@@ -241,20 +244,20 @@ animation-delay: 1.2s;
   font-size: 2.5rem;
   text-align: center;
   font-weight: 100;
-  color: #121c1d;
+  color: #00e1ff;
   margin-bottom: 2rem;
 }
 .temperature{
   font-size: 2.5rem;
   text-align: center;
   font-weight: 100;
-  color: #121c1d;
+  color: #00e1ff;
   margin-bottom: 2rem;
 }
 .humidity{
   font-size: 2.5rem;
   text-align: center;
   font-weight: 100;
-  color: #121c1d;
+  color: #00e1ff;
   margin-bottom: 2rem;
 }

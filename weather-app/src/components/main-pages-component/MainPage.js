@@ -2,29 +2,21 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './MainPage.css';
 import Form from '../forms-component/Form';
-import LoginButton from '../login-component/LoginButton';
+import LoginButton, {LogOutButton} from '../login-component/LoginButton';
 import History from '../history-component/History';
 
-
-//const FAPI = 'http://api.weatherstack.com/forecast?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&forecast_days=7&hourly=1&units=m';
-//let apiResult = [];
-
-
-
 function  MainPage() {
-
   const [visible, setformVisibility]= useState("hide");
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState({value:''});
   const [isError, setIsError] = useState(false);
   const [apiResult, setApiResult] = useState([])
-
-  
-  //let loading = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const fetchData = async (url) => {
     setIsError(false);
     setLoading(true);
+    
     let tempResult = apiResult;
 
     try {
@@ -63,16 +55,14 @@ function  MainPage() {
   useEffect(()=>{
     fetchData('http://api.weatherstack.com/current?access_key=c8f8a6be5b8fc1c09e0cc5de68450744&query=fetch:ip&units=m');
   },[]);
-  
+
   function handleLogin(e) {
     setformVisibility("show");
     e.stopPropagation();
   }
 
-  function handleCancel(e) {
+  function handleCancel() {
     setformVisibility("hide");
-    e.stopPropagation();
-    console.log("clicked " + visible);
   }
 
   function handleQuery(e) {
@@ -90,11 +80,12 @@ function  MainPage() {
 
   return (
     <div className={apiResult[0]?.descriptions}>
-      <Form className='theForm' onClick={handleCancel} menuVisibility={visible} />
+      <Form className='theForm' hideOnLogIn={setformVisibility} isLoggedIn={setIsLoggedIn} hide={handleCancel} menuVisibility={visible} />
     
       <div className='grid-container'>
 
-        <LoginButton className="theButton" onClick={handleLogin} />
+        {!isLoggedIn? <LoginButton className="theButton" onClick={handleLogin} /> 
+        :<LogOutButton className="theButton" unLog={setIsLoggedIn} />}
 
         <div className= 'search'>
 
@@ -113,29 +104,25 @@ function  MainPage() {
               (<div className='mmain'>Loading ...</div>) : 
               (<div className='main'>
               <div className='fade-in one '>
-                <div className='location'>Location: {apiResult[0]?.name} - {apiResult[0]?.country}</div>
+                <div className='location'> &#127969; {apiResult[0]?.name} - {apiResult[0]?.country}</div>
               </div>
               
               <div className='fade-in two'>
-                <div className='condition'>Condition: { apiResult[0]?.descriptions }</div>
+                <div className='condition'> &#127780; { apiResult[0]?.descriptions }</div>
               </div>
-        
-              {/* <div className='fade-in three img'>
-                <img className='img' scr={apiResult[0]?.weather_icons} alt='Weather Icon'></img>
-              </div> */}
-        
+
               <div className='fade-in four'>
-                <div className='temperature'>Temperature : { apiResult[0]?.temperature }</div>
+                <div className='temperature'>&#127777; { apiResult[0]?.temperature } &deg; C</div>
               </div>
         
               <div className='fade-in five'>
-                <div className='humidity'>Humidity : { apiResult[0]?.humidity }</div>
+                <div className='humidity'> &#9748; { apiResult[0]?.humidity } % </div>
               </div>
             </div>)
           }
         </div>
 
-        {apiResult.length===0 ? <p className='nohis'>No Search History</p> : <History result={apiResult} />}
+        {!isLoggedIn ? <p className='nohis'>LOGIN TO SEE SEARCH HISTORY</p> : <History result={apiResult} />}
 
       </div>
 
