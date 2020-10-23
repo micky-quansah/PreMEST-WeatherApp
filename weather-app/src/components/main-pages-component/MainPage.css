@@ -138,6 +138,28 @@ html {
   display: grid;
   grid-template-columns: 0.5fr 2fr 1fr;
 }
+
+@media only screen and (max-device-width: 600px){
+
+  #phone-display{
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .form {
+    position: absolute;
+    left: 3rem;
+    top: 7rem;
+    width: 30rem;
+    background: var(--color-brand);
+    border-radius: var(--rad);
+  }
+}
+
 .main{
   display: flex;
   justify-content: center;

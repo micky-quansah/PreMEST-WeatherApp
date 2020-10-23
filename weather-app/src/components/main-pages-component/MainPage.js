@@ -76,10 +76,8 @@ function  MainPage() {
     fetchData(url);
   }
 
-  const arrLength = apiResult.length;
-
   return (
-    <div className={apiResult[0]?.descriptions}>
+    <div id="phone-display" className={apiResult[0]?.descriptions }>
       <Form className='theForm' hideOnLogIn={setformVisibility} isLoggedIn={setIsLoggedIn} hide={handleCancel} menuVisibility={visible} />
     
       <div className='grid-container'>

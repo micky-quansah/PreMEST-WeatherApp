@@ -1,5 +1,5 @@
 section {
-  width: 30vw;
+  width: 40vw;
   border-radius: 0px 20px 20px 0px;
   margin: auto;
   height: 100vh;
@@ -7,6 +7,7 @@ section {
   background-repeat: cover;
   color: white;
 }
+
   #cancel{
     position: relative;
     width: 20px;
@@ -87,4 +88,35 @@ section {
         border: none;
         cursor: pointer;
         border-radius: 4px 4px;
+      }
+      @media only screen and (max-device-width: 600px){
+        section {
+          width: 80%;
+          border-radius: 0px 20px 20px 0px;
+          margin: auto;
+          height: 100vh;
+          background: linear-gradient(to top left, #60CDFC, #5FFCC2);
+          background-repeat: cover;
+          color: white;
+        }
+        #flyout {
+          width: 80%;
+          height: 100vh;
+          position: fixed;
+          top: 0;
+          left: 0;
+          transition: transform .3s cubic-bezier(0, .52, 0, 1);
+          z-index: 1000;
+        }
+        #cancel{
+          position: relative;
+          width: 20px;
+          height: 20px;
+          top: 5%;
+          left: 82%;
+          border-radius: 50% 50%;
+        }
+        #cancel:hover{
+          background: rgba(255, 0, 0, 0.822);
+        }
       }
